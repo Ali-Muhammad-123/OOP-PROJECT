@@ -30,6 +30,8 @@ public class Main extends Application {
     String correct_username = "ali";
     String correct_password = "ali";
     int counter=0;
+    int rowcounter=2;
+
     ArrayList<Student> students = new ArrayList<>();
     Student student1;
 
@@ -222,7 +224,7 @@ public class Main extends Application {
         MenuBtn2.getChildren().add(Menu2);
         grid2.add(MenuBtn2, 0, 2);
 
-        Button Menu4 = new Button("Print Bill");
+        Button Menu4 = new Button("Show Courses");
         HBox MenuBtn4 = new HBox(10);
         MenuBtn4.setAlignment(Pos.CENTER);
         MenuBtn4.getChildren().add(Menu4);
@@ -240,7 +242,7 @@ public class Main extends Application {
         grid3.setVgap(10);
         grid3.setPadding(new Insets(25, 25, 25, 25));
 
-        Scene ViewStudents = new Scene(grid3, 800, 600);
+        Scene ViewStudents = new Scene(grid3, 1200, 800);
         Text Viewtitle = new Text("Students Database");
         Viewtitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         Viewtitle.setTextAlignment(TextAlignment.CENTER);
@@ -271,6 +273,12 @@ public class Main extends Application {
         Programme.setTextAlignment(TextAlignment.CENTER);
         grid3.add( Programme, 4, 1);
 
+        Text Coursesopted = new Text("Student's Courses");
+        Coursesopted.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Coursesopted.setTextAlignment(TextAlignment.CENTER);
+        grid3.add( Coursesopted, 5, 1);
+
+
         Button Back = new Button("Back");
         HBox Backbtn = new HBox(10);
         Backbtn.setAlignment(Pos.CENTER);
@@ -299,32 +307,55 @@ public class Main extends Application {
                         FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/sample/object.ser");
                         ObjectInputStream ois = new ObjectInputStream(fis);
 
-                        Student student=null;
                         students = (ArrayList<Student>)ois.readObject();
 
-                        Text[] fields = new Text[50];
+                        Text[] fields = new Text[100];
                         for (int i = 0; i < students.size(); i++) {
                             fields[counter] = new Text(String.valueOf(students.get(i).getStudent_ID()));
-                            grid3.add(fields[counter], 0, i + 2);
+                            grid3.add(fields[counter], 0, rowcounter++);
                             counter++;
                             fields[counter] = new Text(students.get(i).getName());
-                            grid3.add(fields[counter], 1, i + 2);
+                            grid3.add(fields[counter], 1, rowcounter);
                             counter++;
                             fields[counter] = new Text(students.get(i).getGender());
-                            grid3.add(fields[counter], 2, i + 2);
+                            grid3.add(fields[counter], 2, rowcounter);
                             counter++;
                             fields[counter] = new Text(students.get(i).getProgramme());
-                            grid3.add(fields[counter], 3, i + 2);
+                            grid3.add(fields[counter], 3, rowcounter);
                             counter++;
                             fields[counter] = new Text(students.get(i).getSemester());
-                            grid3.add(fields[counter], 4, i + 2);
+                            grid3.add(fields[counter], 4, rowcounter);
                             counter++;
-                            fields[counter] = new Text(students.get(i).getCourse1().getCourse_Name() + "\n" + students.get(i).getCourse2().getCourse_Name()
-                                    + "\n" + students.get(i).getCourse3().getCourse_Name() + "\n" + students.get(i).getCourse4().getCourse_Name()
-                                    + "\n" + students.get(i).getCourse5().getCourse_Name() + "\n" + students.get(i).getCourse6().getCourse_Name()
-                                    + "\n" + students.get(i).getCourse7().getCourse_Name());
-                            grid3.add(fields[counter], 5, i + 2);
-                            counter++;
+                            if (students.get(i).getCourse1() != null){
+                            fields[counter] = new Text(students.get(i).getCourse1().getCourse_Name());
+                            grid3.add(fields[counter], 5, rowcounter++);
+                            counter++;}
+                            if (students.get(i).getCourse2() != null){
+                                fields[counter] = new Text(students.get(i).getCourse2().getCourse_Name());
+                                grid3.add(fields[counter], 5, rowcounter++);
+                                counter++;}
+                            if (students.get(i).getCourse3() != null){
+                                fields[counter] = new Text(students.get(i).getCourse3().getCourse_Name());
+                                grid3.add(fields[counter], 5, rowcounter++);
+                                counter++;}
+                            if (students.get(i).getCourse4() != null){
+                                fields[counter] = new Text(students.get(i).getCourse4().getCourse_Name());
+                                grid3.add(fields[counter], 5, rowcounter++);
+                                counter++;}
+                            if (students.get(i).getCourse5() != null){
+                                fields[counter] = new Text(students.get(i).getCourse5().getCourse_Name());
+                                grid3.add(fields[counter], 5, rowcounter++);
+                                counter++;}
+                            if (students.get(i).getCourse6() != null){
+                                fields[counter] = new Text(students.get(i).getCourse6().getCourse_Name());
+                                grid3.add(fields[counter], 5, rowcounter++);
+                                counter++;}
+                            if (students.get(i).getCourse7() != null){
+                                fields[counter] = new Text(students.get(i).getCourse7().getCourse_Name());
+                                grid3.add(fields[counter], 5, rowcounter++);
+
+                                counter++;}
+
 
 
                         }
