@@ -1,13 +1,10 @@
 package sample;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -15,14 +12,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.*;
-
-import javax.print.attribute.standard.MediaSize;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
     String retrieved_password;
@@ -35,21 +29,18 @@ public class Main extends Application {
     ArrayList<Student> students = new ArrayList<>();
     Student student1;
 
-    Courses Course1 = new Courses("1001","Object Oriented Programming" , 3,"Adeel Karim",28,"PHD",true);
-    Courses Course2 = new Courses("1002","Object Oriented Programming LAB" , 1,"Rabia Sameen",25,"PHD",true);
-    Courses Course3 = new Courses("1003","Digital Logic Design" , 3,"Khalid Rasheed",29,"PHD",true);
-    Courses Course4 = new Courses("1004","Digital Logic Design LAB" , 1,"Mubeen Ahmed",23,"PHD",true);
-    Courses Course5 = new Courses("1005","Statistics" , 3,"Aqil Khan",30,"PHD",true);
-    Courses Course6 = new Courses("1006","Oral Communication and Presentation Skills" , 3,"Qaiser Hussian",26,"PHD",true);
-    Courses Course7 = new Courses("1007","Design and Creativity" , 3,"Faiz Alam",30,"PHD",true);
+    Courses Course1 = new Courses("1001","Object Oriented Programming" , 3,"Adeel Karim",28,"PHD");
+    Courses Course2 = new Courses("1002","Object Oriented Programming LAB" , 1,"Rabia Sameen",25,"PHD");
+    Courses Course3 = new Courses("1003","Digital Logic Design" , 3,"Khalid Rasheed",29,"PHD");
+    Courses Course4 = new Courses("1004","Digital Logic Design LAB" , 1,"Mubeen Ahmed",23,"PHD");
+    Courses Course5 = new Courses("1005","Statistics" , 3,"Aqil Khan",30,"PHD");
+    Courses Course6 = new Courses("1006","Oral Communication and Presentation Skills" , 3,"Qaiser Hussian",26,"PHD");
+    Courses Course7 = new Courses("1007","Design and Creativity" , 3,"Faiz Alam",30,"PHD");
     public static void main(String[] args) {
         launch(args);
     }
 
-    @Override
     public void start(Stage primaryStage) {
-
-
 
         primaryStage.setTitle("Szabist Student Management ");
         GridPane grid = new GridPane();
@@ -62,7 +53,7 @@ public class Main extends Application {
         LoginPage.setFill(Color.BLACK);
         primaryStage.setScene(LoginPage);
         Text scenetitle = new Text("Welcome to SZABIST Student Management Hub");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        scenetitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
         Label userName = new Label("Admin User Name:");
@@ -91,9 +82,9 @@ public class Main extends Application {
         grid4.setPadding(new Insets(25, 25, 25, 25));
 
 
-        Scene Courses = new Scene(grid4, 700, 600);
+        Scene Courses = new Scene(grid4, 900, 600);
         Text Courseinfotitle = new Text("Course Form");
-        Courseinfotitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        Courseinfotitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         grid4.setAlignment(Pos.TOP_CENTER);
         grid4.add(Courseinfotitle, 0, 0, 2, 1);
 
@@ -114,21 +105,13 @@ public class Main extends Application {
         grid4.add(DLD,2,3);
         grid4.add(DLDLAB,0,4);
         grid4.add(STATS,2,4);
-        grid4.add(DC,1,5);
+        grid4.add(DC,0,5);
 
         Button CourseSubmit = new Button("Submit");
         HBox hbCourseSubmit = new HBox(10);
         hbCourseSubmit.setAlignment(Pos.BOTTOM_RIGHT);
         hbCourseSubmit.getChildren().add(CourseSubmit);
         grid4.add(CourseSubmit, 2, 7);
-
-//        Courses Course1 = new Courses("1001","Object Oriented Programming" , 3,"Adeel Karim",28,"PHD",true);
-//        Courses Course2 = new Courses("1002","Object Oriented Programming LAB" , 1,"Rabia Sameen",25,"PHD",true);
-//        Courses Course3 = new Courses("1003","Digital Logic Design" , 3,"Khalid Rasheed",29,"PHD",true);
-//        Courses Course4 = new Courses("1004","Digital Logic Design LAB" , 1,"Mubeen Ahmed",23,"PHD",true);
-//        Courses Course5 = new Courses("1005","Statistics" , 3,"Aqil Khan",30,"PHD",true);
-//        Courses Course6 = new Courses("1006","Oral Communication and Presentation Skills" , 3,"Qaiser Hussian",26,"PHD",true);
-//        Courses Course7 = new Courses("1007","Design and Creativity" , 3,"Faiz Alam",30,"PHD",true);
 
 
         // ----------------------------------------------------
@@ -143,7 +126,7 @@ public class Main extends Application {
 
         Scene studentinfo = new Scene(grid1, 700, 600);
         Text studentinfotitle = new Text("Student Form");
-        studentinfotitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        studentinfotitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         grid1.setAlignment(Pos.TOP_CENTER);
         grid1.add(studentinfotitle, 0, 0, 2, 1);
 
@@ -172,14 +155,8 @@ public class Main extends Application {
         String[] choice = new String[1];
         ChoiceBox Genderbox = new ChoiceBox(FXCollections.observableArrayList(genderchoices));
 
-        Genderbox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-
-            public void changed(ObservableValue ov, Number value, Number new_value)
-            {
-
-                choice[0] = genderchoices[new_value.intValue()];
-            }
-        });
+        Genderbox.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) ->
+                choice[0] = genderchoices[new_value.intValue()]);
         Label genderlabel = new Label("Gender:");
         grid1.add(genderlabel, 0, 5);
         grid1.add(Genderbox,1,5);
@@ -200,6 +177,25 @@ public class Main extends Application {
 
         //-----------------------------------------------------
 
+
+        GridPane grid5 = new GridPane();
+        grid5.setAlignment(Pos.CENTER);
+        grid5.setHgap(10);
+        grid5.setVgap(10);
+        grid5.setPadding(new Insets(25, 25, 25, 25));
+
+
+        Scene ViewCourses = new Scene(grid5, 700, 600);
+        Text ViewCoursetitle = new Text("Courses Available");
+        ViewCoursetitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
+        ViewCoursetitle.setTextAlignment(TextAlignment.CENTER);
+        grid5.add(Courseinfotitle, 0, 0, 2, 1);
+
+
+
+
+
+        //-----------------------------------------------------
         GridPane grid2 = new GridPane();
         grid2.setAlignment(Pos.CENTER);
         grid2.setHgap(10);
@@ -208,7 +204,7 @@ public class Main extends Application {
 
         Scene Menu = new Scene(grid2, 600, 600);
         Text MenuTitle = new Text("Menu");
-        MenuTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        MenuTitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         MenuTitle.setTextAlignment(TextAlignment.CENTER);
         grid2.add(MenuTitle, 0, 0,3,1);
 
@@ -230,7 +226,7 @@ public class Main extends Application {
         MenuBtn4.getChildren().add(Menu4);
         grid2.add(MenuBtn4, 0, 3);
 
-        Button Menu3 = new Button("Visualize COVID-19 Cases");
+        Button Menu3 = new Button("");
         HBox MenuBtn3 = new HBox(10);
         MenuBtn3.setAlignment(Pos.CENTER);
         MenuBtn3.getChildren().add(Menu3);
@@ -244,37 +240,37 @@ public class Main extends Application {
 
         Scene ViewStudents = new Scene(grid3, 1200, 800);
         Text Viewtitle = new Text("Students Database");
-        Viewtitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
+        Viewtitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         Viewtitle.setTextAlignment(TextAlignment.CENTER);
-        grid3.add(Viewtitle, 0, 0,1,1);
+        grid3.add(Viewtitle, 3, 0,1,1);
 
         Text ID = new Text("Student's ID");
-        ID.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        ID.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         ID.setTextAlignment(TextAlignment.CENTER);
         grid3.add(ID, 0, 1);
 
         Text Name = new Text("Student's Name");
-        Name.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Name.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         Name.setTextAlignment(TextAlignment.CENTER);
         grid3.add(Name, 1, 1);
 
         Text Gender = new Text("Student's Gender");
-        Gender.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Gender.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         Gender.setTextAlignment(TextAlignment.CENTER);
         grid3.add(Gender, 2, 1);
 
         Text Semester = new Text("Student's Semester");
-        Semester.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Semester.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         Semester.setTextAlignment(TextAlignment.CENTER);
         grid3.add(Semester, 3, 1);
 
         Text Programme = new Text("Student's Programme");
-        Programme.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Programme.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         Programme.setTextAlignment(TextAlignment.CENTER);
         grid3.add( Programme, 4, 1);
 
         Text Coursesopted = new Text("Student's Courses");
-        Coursesopted.setFont(Font.font("Tahoma", FontWeight.NORMAL, 15));
+        Coursesopted.setFont(Font.font("Verdana", FontWeight.NORMAL, 15));
         Coursesopted.setTextAlignment(TextAlignment.CENTER);
         grid3.add( Coursesopted, 5, 1);
 
@@ -312,7 +308,7 @@ public class Main extends Application {
                         Text[] fields = new Text[100];
                         for (int i = 0; i < students.size(); i++) {
                             fields[counter] = new Text(String.valueOf(students.get(i).getStudent_ID()));
-                            grid3.add(fields[counter], 0, rowcounter++);
+                            grid3.add(fields[counter], 0, ++rowcounter);
                             counter++;
                             fields[counter] = new Text(students.get(i).getName());
                             grid3.add(fields[counter], 1, rowcounter);
@@ -364,16 +360,13 @@ public class Main extends Application {
                     }
                 });
 
-//        ImageView PakistanMap = new ImageView();
-//        Image image1 = new Image(Main.class.getResourceAsStream("MAP.png"));
-//        PakistanMap.setImage(image1);
-//        grid2.add(PakistanMap,0,1,30,30);
-
         Menu1.setOnAction(e ->{
         primaryStage.setScene(studentinfo);
         });
         Menu2.setOnAction(e ->{
             primaryStage.setScene(ViewStudents);
+            counter=0;
+            rowcounter=2;
         });
         Menu3.setOnAction(e ->{
             primaryStage.setScene(studentinfo);

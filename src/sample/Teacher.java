@@ -1,20 +1,24 @@
 package sample;
 
-public class Teacher {
+abstract public class Teacher {
     String Name;
     int Age;
     String Qualification;
-    boolean permanent;
+
+    boolean Lab_instructor;
 
     Teacher(){}
 
-    Teacher(String Name,int Age,String Qualification,boolean permanent)
+
+    Teacher(String Name,int Age,String Qualification)
     {
         this.Name = Name;
         this.Age = Age;
         this.Qualification = Qualification;
-        this.permanent =  permanent;
+
     }
+
+    abstract void Lab_instructor();
 
     public String getName() {
         return Name;
