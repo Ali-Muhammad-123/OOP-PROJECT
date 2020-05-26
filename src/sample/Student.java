@@ -2,21 +2,24 @@ package sample;
 
 import java.io.Serializable;
 
-public class Student implements Serializable{
-    private String Name;
-    private int Student_ID;
+public class Student extends Person implements Serializable{
+
     private String Semester;
-    private String Gender;
     private String programme;
     Courses Course1,Course2,Course3,Course4,Course5,Course6,Course7;
 
-    Student(String Name,int Student_ID,String Gender ,String Semester , String programme){
-        this.Student_ID = Student_ID;
-        this.Name = Name;
-        this.Gender=Gender;
+    Student(String Name,int ID,String Gender ,int Age ,String Semester , String programme){
+        super(Name,ID,Gender,Age);
         this.programme = programme;
         this.Semester = Semester;
     }
+
+    @Override
+    public void Courses_Assigned() {
+
+    }
+
+
 
     public void setCourse1(Courses course1) {
         Course1 = course1;
@@ -72,18 +75,6 @@ public class Student implements Serializable{
 
     public void setCourse7(Courses course7) {
         Course7 = course7;
-    }
-
-    public String getGender() {
-        return Gender;
-    }
-
-    public String getName() {
-        return Name;
-    }
-
-    public int getStudent_ID() {
-        return Student_ID;
     }
 
     public String getProgramme() {

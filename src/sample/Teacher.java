@@ -1,32 +1,24 @@
 package sample;
 
-abstract public class Teacher {
-    String Name;
-    int Age;
+public class Teacher extends Person {
+
     String Qualification;
 
+    Courses[] courses = new Courses[3];
     boolean Lab_instructor;
 
     Teacher(){}
-
-
-    Teacher(String Name,int Age,String Qualification)
+    Teacher(String Name,int ID,String Gender ,int Age ,String Qualification)
     {
-        this.Name = Name;
-        this.Age = Age;
+        super(Name,ID,Gender,Age);
         this.Qualification = Qualification;
+    }
+
+    @Override
+    public void Courses_Assigned() {
 
     }
 
-    abstract void Lab_instructor();
-
-    public String getName() {
-        return Name;
-    }
-
-    public int getAge() {
-        return Age;
-    }
 
     public String getQualification() {
         return Qualification;
