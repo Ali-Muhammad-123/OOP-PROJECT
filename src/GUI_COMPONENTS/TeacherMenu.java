@@ -1,5 +1,6 @@
 package GUI_COMPONENTS;
 
+import Classes.Lab_instructor;
 import Classes.Teacher;
 
 import javafx.application.Application;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 public class TeacherMenu extends Application {
     ArrayList<Teacher> teachers = new ArrayList<>();
     Teacher teacher;
+    ArrayList<Lab_instructor> lab_instructors = new ArrayList<>();
+    Lab_instructor lab_instructor;
     public static void main(String[] args) {
         launch(args);
     }
@@ -47,17 +50,23 @@ public class TeacherMenu extends Application {
         MenuBtn1.getChildren().add(Menu1);
         grid2.add(MenuBtn1, 0, 1);
 
+        Button Menu4 = new Button("Hire new Lab Instructor");
+        HBox MenuBtn4 = new HBox(10);
+        MenuBtn4.setAlignment(Pos.CENTER);
+        MenuBtn4.getChildren().add(Menu4);
+        grid2.add(MenuBtn4, 1, 1);
+
         Button Menu2 = new Button("View Teachers' info");
         HBox MenuBtn2 = new HBox(10);
         MenuBtn2.setAlignment(Pos.CENTER);
         MenuBtn2.getChildren().add(Menu2);
-        grid2.add(MenuBtn2, 1, 1);
+        grid2.add(MenuBtn2, 0, 2);
 
         Button Menu3 = new Button("Generate Payroll");
         HBox MenuBtn3 = new HBox(10);
         MenuBtn3.setAlignment(Pos.CENTER);
         MenuBtn3.getChildren().add(Menu3);
-        grid2.add(MenuBtn3, 0, 2,2,1);
+        grid2.add(MenuBtn3, 1, 2);
 
         Button Back = new Button("Back");
         HBox Backbtn = new HBox(10);
@@ -76,18 +85,33 @@ public class TeacherMenu extends Application {
             teacherFormScene.start(primaryStage);
         });
         Menu2.setOnAction(e ->{
-            ViewTeachers viewTeachers = new ViewTeachers(teachers);
+            ViewTeachers viewTeachers = new ViewTeachers(teachers,lab_instructors);
             viewTeachers.start(primaryStage);
 
         });
         Menu3.setOnAction(e ->{
-            TeacherSalaryScene teacherSalaryScene = new TeacherSalaryScene(teachers);
+            TeacherSalaryScene teacherSalaryScene = new TeacherSalaryScene(teachers,lab_instructors);
             teacherSalaryScene.start(primaryStage);
+        });
+
+        Menu4.setOnAction(e ->{
+            LabInstructorFormScene labInstructorFormScene = new LabInstructorFormScene(lab_instructor,lab_instructors);
+            labInstructorFormScene.start(primaryStage);
         });
         try {
             FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Teachers.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
             teachers = (ArrayList<Teacher>) ois.readObject();
+        }
+        catch (Exception ex){
+            System.out.println(ex);
+        }
+
+
+        try {
+            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Lab_Instructors.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            lab_instructors = (ArrayList<Lab_instructor>) ois.readObject();
         }
         catch (Exception ex){
             System.out.println(ex);

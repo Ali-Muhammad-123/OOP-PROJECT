@@ -61,8 +61,6 @@ public class Main extends Application {
             }
             retrieved_username =  userTextField.getText();
             retrieved_password = pwBox.getText();
-            System.out.println(retrieved_password + retrieved_username);
-
             if (retrieved_username.equals(correct_username) && retrieved_password.equals(correct_password)){
                 Text displaymsg = new Text("The username and password are correct");
                 MainMenuScene mainMenuScene = new MainMenuScene();

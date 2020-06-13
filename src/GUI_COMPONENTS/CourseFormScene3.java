@@ -1,5 +1,6 @@
 package GUI_COMPONENTS;
 
+import Classes.Lab_instructor;
 import Classes.Teacher;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -14,23 +15,20 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Classes.Courses;
-import Classes.Student;
-
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-public class CourseFormScene2 extends Application {
+public class CourseFormScene3 extends Application {
 
-    Teacher teacher;
-    ArrayList<Teacher> teachers;
+    Lab_instructor lab_instructor;
+    ArrayList<Lab_instructor> lab_instructors;
 
 
-    CourseFormScene2(Teacher teacher, ArrayList<Teacher> teachers){
-        this.teacher = teacher;
-        this.teachers = teachers;
+    CourseFormScene3(Lab_instructor lab_instructor, ArrayList<Lab_instructor> lab_instructors){
+        this.lab_instructor = lab_instructor;
+        this.lab_instructors = lab_instructors;
     }
-
 
 
     public static void main(String[] args) {
@@ -63,7 +61,7 @@ public class CourseFormScene2 extends Application {
         grid4.setAlignment(Pos.TOP_CENTER);
         grid4.add(Courseinfotitle, 0, 0, 2, 1);
 
-        Text Instructions = new Text("Select the courses that The teacher would would be teaching (max 3)  :");
+        Text Instructions = new Text("Select the courses that The Lab instructor would would be teaching (max 1)  :");
         grid4.add(Instructions, 0, 1);
 
         RadioButton[] coursebuttons = new RadioButton[7];
@@ -98,15 +96,15 @@ public class CourseFormScene2 extends Application {
                 }
             }
             try{
-                teacher.Assign_Courses(SelectedCourses);}
+                lab_instructor.Assign_Courses(SelectedCourses);}
             catch (Exception ex){
                 throw ex;
             }
             try{
-                FileOutputStream fop = new FileOutputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Teachers.ser");
+                FileOutputStream fop = new FileOutputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Lab_Instructors.ser");
                 ObjectOutputStream oos = new ObjectOutputStream(fop);
-                teachers.add(teacher);
-                oos.writeObject(teachers);
+                lab_instructors.add(lab_instructor);
+                oos.writeObject(lab_instructors);
 
             } catch (Exception ex) {
                 System.out.println(ex);

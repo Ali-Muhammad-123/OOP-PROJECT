@@ -2,7 +2,7 @@ package Classes;
 
 import java.io.Serializable;
 
-public class Teacher extends Person  implements Serializable {
+public class Teacher extends Person   {
 
     String Qualification;
     Courses[] Courses = new Courses[3];

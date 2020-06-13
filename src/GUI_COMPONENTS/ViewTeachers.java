@@ -1,5 +1,6 @@
 package GUI_COMPONENTS;
 
+import Classes.Lab_instructor;
 import Classes.Teacher;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -22,9 +23,13 @@ public class ViewTeachers extends Application  {
     ArrayList<Teacher> teachers;
     int counter=0;
     int rowcounter=2;
-    ViewTeachers( ArrayList<Teacher> teachers){
+    ArrayList<Lab_instructor> lab_instructors;
+
+    ViewTeachers( ArrayList<Teacher> teachers ,ArrayList<Lab_instructor> lab_instructors){
         this.teachers = teachers;
+        this.lab_instructors  =lab_instructors;
     }
+
 
     public static void main(String[] args) {
         launch(args);
@@ -123,6 +128,41 @@ public class ViewTeachers extends Application  {
             } catch (Exception exep) {
                 System.out.println(exep);
             }
+
+
+        try {
+            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Lab_Instructors.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            lab_instructors = (ArrayList<Lab_instructor>)ois.readObject();
+
+            Text[] fields = new Text[100];
+            for (int i = 0; i < lab_instructors.size(); i++) {
+                fields[counter] = new Text(String.valueOf(lab_instructors.get(i).getID()));
+                grid3.add(fields[counter], 0, ++rowcounter);
+                counter++;
+                fields[counter] = new Text(lab_instructors.get(i).getName());
+                grid3.add(fields[counter], 1, rowcounter);
+                counter++;
+                fields[counter] = new Text(lab_instructors.get(i).getGender());
+                grid3.add(fields[counter], 2, rowcounter);
+                counter++;
+                fields[counter] = new Text(String.valueOf(lab_instructors.get(i).getAge()));
+                grid3.add(fields[counter], 3, rowcounter);
+                counter++;
+                fields[counter] = new Text(lab_instructors.get(i).getQualification());
+                grid3.add(fields[counter], 4, rowcounter);
+                counter++;
+                for (int j=0 ; j<lab_instructors.get(i).getCourses().length; j++){
+                    if (lab_instructors.get(i).getCourses()[j] != null) {
+                        fields[counter] = new Text(lab_instructors.get(i).getCourses()[j].getCourse_Name());
+                        grid3.add(fields[counter], 6, rowcounter++);
+                        counter++;
+                    }
+                } }
+
+        } catch (Exception exep) {
+            System.out.println(exep);
+        }
 
         primaryStage.setScene(ViewStudents);
     }

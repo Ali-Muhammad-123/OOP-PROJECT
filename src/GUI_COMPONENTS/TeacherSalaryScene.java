@@ -1,5 +1,6 @@
 package GUI_COMPONENTS;
 
+import Classes.Lab_instructor;
 import Classes.Salary;
 import Classes.Teacher;
 
@@ -24,10 +25,14 @@ import java.util.ArrayList;
 public class TeacherSalaryScene extends Application {
 
     ArrayList<Teacher> teachers;
+
+    ArrayList<Lab_instructor> lab_instructors;
     int counter=0;
     int rowcounter=2;
-    TeacherSalaryScene( ArrayList<Teacher> teachers){
+    Salary salary = new Salary();
+    TeacherSalaryScene( ArrayList<Teacher> teachers ,ArrayList<Lab_instructor> lab_instructors){
         this.teachers = teachers;
+        this.lab_instructors  =lab_instructors;
     }
 
 
@@ -88,17 +93,41 @@ public class TeacherSalaryScene extends Application {
 
             Text[] fields = new Text[100];
             for (int i = 0; i < teachers.size(); i++) {
-                Salary salary = new Salary(teachers.get(i));
                 fields[counter] = new Text(String.valueOf(teachers.get(i).getID()));
                 grid3.add(fields[counter], 0, ++rowcounter);
                 counter++;
                 fields[counter] = new Text(teachers.get(i).getName());
                 grid3.add(fields[counter], 1, rowcounter);
                 counter++;
-                fields[counter] = new Text(String.valueOf(salary.getNet_amount()));
+                fields[counter] = new Text(String.valueOf(salary.getNet_amount(teachers.get(i))));
                 grid3.add(fields[counter], 2, rowcounter);
                 counter++;
-                fields[counter] = new Text(String.valueOf(salary.getGross_amount()));
+                fields[counter] = new Text(String.valueOf(salary.getGross_amount(teachers.get(i))));
+                grid3.add(fields[counter], 3, rowcounter);
+                counter++;
+            }
+
+        } catch (Exception exep) {
+            System.out.println(exep);
+        }
+
+        try {
+            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Lab_Instructors.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            lab_instructors = (ArrayList<Lab_instructor>)ois.readObject();
+
+            Text[] fields = new Text[100];
+            for (int i = 0; i < lab_instructors.size(); i++) {
+                fields[counter] = new Text(String.valueOf(lab_instructors.get(i).getID()));
+                grid3.add(fields[counter], 0, ++rowcounter);
+                counter++;
+                fields[counter] = new Text(lab_instructors.get(i).getName());
+                grid3.add(fields[counter], 1, rowcounter);
+                counter++;
+                fields[counter] = new Text(String.valueOf(salary.getNet_amount(lab_instructors.get(i))));
+                grid3.add(fields[counter], 2, rowcounter);
+                counter++;
+                fields[counter] = new Text(String.valueOf(salary.getGross_amount(lab_instructors.get(i))));
                 grid3.add(fields[counter], 3, rowcounter);
                 counter++;
             }

@@ -2,7 +2,7 @@ package Classes;
 
 import java.io.Serializable;
 
-public class Student extends Person implements Serializable{
+public class Student extends Person {
 
     private String Semester;
     private String programme;
