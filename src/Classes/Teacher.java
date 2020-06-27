@@ -25,7 +25,7 @@ public class Teacher extends Person   {
 
     public int Count_Courses() {
         int out=0;
-        for (int i=0 ; i<3 ; i++){
+        for (int i=0 ; i<Courses.length ; i++){
             if (Courses[i] != null){
                 out++;
             }

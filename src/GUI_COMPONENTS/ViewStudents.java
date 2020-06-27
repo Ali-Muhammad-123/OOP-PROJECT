@@ -115,10 +115,10 @@ public class ViewStudents extends Application  {
                     fields[counter] = new Text(String.valueOf(students.get(i).getAge()));
                     grid3.add(fields[counter], 3, rowcounter);
                     counter++;
-                    fields[counter] = new Text(students.get(i).getProgramme());
+                    fields[counter] = new Text(students.get(i).getSemester());
                     grid3.add(fields[counter], 4, rowcounter);
                     counter++;
-                    fields[counter] = new Text(students.get(i).getSemester());
+                    fields[counter] = new Text(students.get(i).getProgramme());
                     grid3.add(fields[counter], 5, rowcounter);
                     counter++;
                     for (int j=0 ; j<students.get(i).getCourses().length; j++){
