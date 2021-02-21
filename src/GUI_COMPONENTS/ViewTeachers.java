@@ -1,7 +1,10 @@
 package GUI_COMPONENTS;
 
 import Classes.Lab_instructor;
+import Classes.Student;
 import Classes.Teacher;
+import LinkedList.Node;
+import LinkedList.SinglyList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,15 +20,14 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
 public class ViewTeachers extends Application  {
-    ArrayList<Teacher> teachers;
+    SinglyList<Teacher> teachers;
     int counter=0;
     int rowcounter=2;
-    ArrayList<Lab_instructor> lab_instructors;
+    SinglyList<Lab_instructor> lab_instructors;
 
-    ViewTeachers( ArrayList<Teacher> teachers ,ArrayList<Lab_instructor> lab_instructors){
+    ViewTeachers( SinglyList<Teacher> teachers ,SinglyList<Lab_instructor> lab_instructors){
         this.teachers = teachers;
         this.lab_instructors  =lab_instructors;
     }
@@ -95,74 +97,82 @@ public class ViewTeachers extends Application  {
 
         grid3.add(Backbtn1, 1, 23);
 
-            try {
-                FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Teachers.ser");
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                teachers = (ArrayList<Teacher>)ois.readObject();
+        try {
+            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/DSA LAB PROJECT/src/Classes/Lab_Instructors.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            lab_instructors = (SinglyList<Lab_instructor>)ois.readObject();
+            lab_instructors.sortList();
+            Text[] fields = new Text[100];
+            Node<Lab_instructor> node = lab_instructors.getFirst();
+            while (node !=null){
+                fields[counter] = new Text(String.valueOf(node.getData().getID()));
+                grid3.add(fields[counter], 0, ++rowcounter);
+                counter++;
+                fields[counter] = new Text(node.getData().getName());
+                grid3.add(fields[counter], 1, rowcounter);
+                counter++;
+                fields[counter] = new Text(node.getData().getGender());
+                grid3.add(fields[counter], 2, rowcounter);
+                counter++;
+                fields[counter] = new Text(String.valueOf(node.getData().getAge()));
+                grid3.add(fields[counter], 3, rowcounter);
+                counter++;
+                fields[counter] = new Text(node.getData().getQualification());
+                grid3.add(fields[counter], 4, rowcounter);
+                counter++;
+                for (int j=0 ; j<node.getData().getCourses().length; j++){
+                    if (node.getData().getCourses()[j] != null) {
+                        fields[counter] = new Text(node.getData().getCourses()[j].getCourse_Name());
+                        grid3.add(fields[counter], 5, rowcounter++);
+                        counter++;
+                    }
+                }
+                node = node.next;
+            }
 
+        } catch (Exception exep) {
+            System.out.println(exep);
+        }
+
+
+            try {
+                FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/DSA LAB PROJECT/src/Classes/Teachers.ser");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                teachers = (SinglyList<Teacher>)ois.readObject();
+                teachers.sortList();
                 Text[] fields = new Text[100];
-                for (int i = 0; i < teachers.size(); i++) {
-                    fields[counter] = new Text(String.valueOf(teachers.get(i).getID()));
+                Node<Teacher> node = teachers.getFirst();
+                while (node !=null){
+                    fields[counter] = new Text(String.valueOf(node.getData().getID()));
                     grid3.add(fields[counter], 0, ++rowcounter);
                     counter++;
-                    fields[counter] = new Text(teachers.get(i).getName());
+                    fields[counter] = new Text(node.getData().getName());
                     grid3.add(fields[counter], 1, rowcounter);
                     counter++;
-                    fields[counter] = new Text(teachers.get(i).getGender());
+                    fields[counter] = new Text(node.getData().getGender());
                     grid3.add(fields[counter], 2, rowcounter);
                     counter++;
-                    fields[counter] = new Text(String.valueOf(teachers.get(i).getAge()));
+                    fields[counter] = new Text(String.valueOf(node.getData().getAge()));
                     grid3.add(fields[counter], 3, rowcounter);
                     counter++;
-                    fields[counter] = new Text(teachers.get(i).getQualification());
+                    fields[counter] = new Text(node.getData().getQualification());
                     grid3.add(fields[counter], 4, rowcounter);
                     counter++;
-                    for (int j=0 ; j<teachers.get(i).getCourses().length; j++){
-                        if (teachers.get(i).getCourses()[j] != null) {
-                            fields[counter] = new Text(teachers.get(i).getCourses()[j].getCourse_Name());
-                            grid3.add(fields[counter], 6, rowcounter++);
+                    for (int j=0 ; j<node.getData().getCourses().length; j++){
+                        if (node.getData().getCourses()[j] != null) {
+                            fields[counter] = new Text(node.getData().getCourses()[j].getCourse_Name());
+                            grid3.add(fields[counter], 5, rowcounter++);
                             counter++;
                         }
-                    } }
+                    }
+                    node = node.next;}
 
             } catch (Exception exep) {
                 System.out.println(exep);
             }
 
 
-        try {
-            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Lab_Instructors.ser");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            lab_instructors = (ArrayList<Lab_instructor>)ois.readObject();
 
-            Text[] fields = new Text[100];
-            for (int i = 0; i < lab_instructors.size(); i++) {
-                fields[counter] = new Text(String.valueOf(lab_instructors.get(i).getID()));
-                grid3.add(fields[counter], 0, ++rowcounter);
-                counter++;
-                fields[counter] = new Text(lab_instructors.get(i).getName());
-                grid3.add(fields[counter], 1, rowcounter);
-                counter++;
-                fields[counter] = new Text(lab_instructors.get(i).getGender());
-                grid3.add(fields[counter], 2, rowcounter);
-                counter++;
-                fields[counter] = new Text(String.valueOf(lab_instructors.get(i).getAge()));
-                grid3.add(fields[counter], 3, rowcounter);
-                counter++;
-                fields[counter] = new Text(lab_instructors.get(i).getQualification());
-                grid3.add(fields[counter], 4, rowcounter);
-                counter++;
-                for (int j=0 ; j<lab_instructors.get(i).getCourses().length; j++){
-                    if (lab_instructors.get(i).getCourses()[j] != null) {
-                        fields[counter] = new Text(lab_instructors.get(i).getCourses()[j].getCourse_Name());
-                        grid3.add(fields[counter], 6, rowcounter++);
-                        counter++;
-                    }
-                } }
-
-        } catch (Exception exep) {
-            System.out.println(exep);
-        }
 
         primaryStage.setScene(ViewStudents);
     }

@@ -18,7 +18,7 @@ abstract public class Person implements Serializable  {
         if (age >17){
         this.Age = age;}
         else {
-            throw new  IllegalArgumentException("The age must be greater than 17");
+            throw new IllegalArgumentException("The age must be greater than 17");
         }
     }
 
@@ -48,4 +48,6 @@ abstract public class Person implements Serializable  {
     public int getAge() {
         return Age;
     }
+
+
 }

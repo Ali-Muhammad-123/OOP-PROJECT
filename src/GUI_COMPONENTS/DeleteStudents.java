@@ -18,12 +18,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Classes.Student;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
-public class StudentFormScene extends Application {
-    Student student1;
+
+public class DeleteStudents extends Application {
     SinglyList<Student> students;
-    StudentFormScene(Student student1,SinglyList<Student> students){
-        this.student1 = student1;
+    DeleteStudents(SinglyList<Student> students){
         this.students = students;
     }
     public static void main(String[] args) {
@@ -39,7 +40,7 @@ public class StudentFormScene extends Application {
 
 
         Scene studentinfo = new Scene(grid1, 700, 600);
-        Text studentinfotitle = new Text("Student Form");
+        Text studentinfotitle = new Text("Remove Students");
         studentinfotitle.setFont(Font.font("Verdana", FontWeight.NORMAL, 20));
         grid1.setAlignment(Pos.TOP_CENTER);
         grid1.add(studentinfotitle, 0, 0, 2, 1);
@@ -49,37 +50,6 @@ public class StudentFormScene extends Application {
         TextField student_idTextField = new TextField();
         grid1.add(student_idTextField, 1, 1);
 
-        Label studentName = new Label("Name:");
-        grid1.add(studentName, 0, 2);
-
-        TextField studentNameTextField = new TextField();
-        grid1.add(studentNameTextField, 1, 2);
-
-        Label studentSemester = new Label("Semester:");
-        grid1.add(studentSemester, 0, 3);
-        TextField studentSemesterTextField = new TextField();
-        grid1.add(studentSemesterTextField, 1, 3);
-
-        Label studentProgramme = new Label("Programme:");
-        grid1.add(studentProgramme, 0, 4);
-        TextField studentProgrammeTextField = new TextField();
-        grid1.add(studentProgrammeTextField, 1, 4);
-
-        Label studentAge = new Label("Age:");
-        grid1.add(studentAge, 0, 5);
-        TextField studentAgeTextField = new TextField();
-        grid1.add(studentAgeTextField, 1, 5);
-
-
-        String[] genderchoices = {"Male" , "Female" , "Unspecifed"};
-        String[] choice = new String[1];
-        ChoiceBox Genderbox = new ChoiceBox(FXCollections.observableArrayList(genderchoices));
-
-        Genderbox.getSelectionModel().selectedIndexProperty().addListener((ov, value, new_value) ->
-                choice[0] = genderchoices[new_value.intValue()]);
-        Label genderlabel = new Label("Gender:");
-        grid1.add(genderlabel, 0, 6);
-        grid1.add(Genderbox,1,6);
 
         Button Back = new Button("Back");
         HBox Backbtn = new HBox(10);
@@ -97,20 +67,26 @@ public class StudentFormScene extends Application {
         HBox hbBtn3 = new HBox(10);
         hbBtn3.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn3.getChildren().add(btn3);
-        grid1.add(hbBtn3, 2, 7);
+        grid1.add(hbBtn3, 1, 8);
         btn3.setOnAction(e ->
         {
-            student1 = new Student(studentNameTextField.getText() ,  choice[0]  ,studentSemesterTextField.getText(),studentProgrammeTextField.getText());
             try{
-                student1.setID(Integer.parseInt(student_idTextField.getText()));
-                student1.setAge( Integer.parseInt(studentAgeTextField.getText()));
+                students.Delete(Integer.parseInt(student_idTextField.getText()));
             }
             catch (Exception ex){
                 throw ex;
             }
+            try{
+                FileOutputStream fop = new FileOutputStream("C:/Users/hp/Desktop/DSA LAB PROJECT/src/Classes/Students.ser");
+                ObjectOutputStream oos = new ObjectOutputStream(fop);
+                oos.writeObject(students);
 
-            CourseFormScene courseFormScene = new CourseFormScene(student1,students);
-            courseFormScene.start(primaryStage);
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+
+            ViewStudents viewStudents = new ViewStudents(students);
+            viewStudents.start(primaryStage);
         } );
 
         primaryStage.setScene(studentinfo);

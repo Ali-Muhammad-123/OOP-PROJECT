@@ -1,7 +1,5 @@
 package Classes;
 
-import java.io.Serializable;
-
 public class Student extends Person {
 
     private String Semester;
@@ -27,7 +25,7 @@ public class Student extends Person {
 
     public int Count_Courses() {
         int out=0;
-        for (int i=0 ; i<5 ; i++){
+        for (int i=0 ; i<Courses.length ; i++){
             if (Courses[i] != null){
                 out++;
             }
@@ -40,8 +38,6 @@ public class Student extends Person {
     public String getProgramme() {
         return programme;
     }
-
-
 
     public String getSemester() {
         return Semester;

@@ -1,5 +1,7 @@
 package GUI_COMPONENTS;
 
+import LinkedList.Node;
+import LinkedList.SinglyList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,13 +18,12 @@ import Classes.Student;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
 public class ViewStudents extends Application  {
-    ArrayList<Student> students;
+    SinglyList<Student> students;
     int counter=0;
     int rowcounter=2;
-    ViewStudents( ArrayList<Student> students){
+    ViewStudents( SinglyList<Student> students){
         this.students = students;
     }
 
@@ -97,40 +98,43 @@ public class ViewStudents extends Application  {
 
 
             try {
-                FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Students.ser");
+                FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/DSA LAB PROJECT/src/Classes/Students.ser");
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                students = (ArrayList<Student>)ois.readObject();
-
+                students = (SinglyList<Student>)ois.readObject();
+                students.sortList();
                 Text[] fields = new Text[100];
-                for (int i = 0; i < students.size(); i++) {
-                    fields[counter] = new Text(String.valueOf(students.get(i).getID()));
+                Node<Student> node = students.getFirst();
+                while (node !=null) {
+                    fields[counter] = new Text(String.valueOf(node.getData().getID()));
                     grid3.add(fields[counter], 0, ++rowcounter);
                     counter++;
-                    fields[counter] = new Text(students.get(i).getName());
+                    fields[counter] = new Text(node.getData().getName());
                     grid3.add(fields[counter], 1, rowcounter);
                     counter++;
-                    fields[counter] = new Text(students.get(i).getGender());
+                    fields[counter] = new Text(node.getData().getGender());
                     grid3.add(fields[counter], 2, rowcounter);
                     counter++;
-                    fields[counter] = new Text(String.valueOf(students.get(i).getAge()));
+                    fields[counter] = new Text(String.valueOf(node.getData().getAge()));
                     grid3.add(fields[counter], 3, rowcounter);
                     counter++;
-                    fields[counter] = new Text(students.get(i).getProgramme());
+                    fields[counter] = new Text(node.getData().getSemester());
                     grid3.add(fields[counter], 4, rowcounter);
                     counter++;
-                    fields[counter] = new Text(students.get(i).getSemester());
+                    fields[counter] = new Text(node.getData().getProgramme());
                     grid3.add(fields[counter], 5, rowcounter);
                     counter++;
-                    for (int j=0 ; j<students.get(i).getCourses().length; j++){
-                        if (students.get(i).getCourses()[j] != null) {
-                            fields[counter] = new Text(students.get(i).getCourses()[j].getCourse_Name());
+                    for (int j=0 ; j<node.getData().getCourses().length; j++){
+                        if (node.getData().getCourses()[j] != null) {
+                            fields[counter] = new Text(node.getData().getCourses()[j].getCourse_Name());
                             grid3.add(fields[counter], 6, rowcounter++);
                             counter++;
                         }
-                    } }
+                    }
+                    node = node.next;
+                }
 
             } catch (Exception exep) {
-                System.out.println(exep);
+                exep.printStackTrace();
             }
 
     primaryStage.setScene(ViewStudents);

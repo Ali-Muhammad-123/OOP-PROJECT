@@ -1,5 +1,6 @@
 package GUI_COMPONENTS;
 
+        import LinkedList.SinglyList;
         import javafx.application.Application;
         import javafx.collections.FXCollections;
         import javafx.geometry.Insets;
@@ -17,13 +18,11 @@ package GUI_COMPONENTS;
         import javafx.stage.Stage;
         import Classes.*;
 
-        import java.util.ArrayList;
-
 public class LabInstructorFormScene extends Application {
 
     Lab_instructor lab_instructor;
-    ArrayList<Lab_instructor> lab_instructors;
-    LabInstructorFormScene(Lab_instructor lab_instructor,ArrayList<Lab_instructor> lab_instructors){
+    SinglyList<Lab_instructor> lab_instructors;
+    LabInstructorFormScene(Lab_instructor lab_instructor,SinglyList<Lab_instructor> lab_instructors){
         this.lab_instructor = lab_instructor;
         this.lab_instructors = lab_instructors;
     }

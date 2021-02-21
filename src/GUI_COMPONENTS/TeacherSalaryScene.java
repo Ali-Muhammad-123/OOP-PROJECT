@@ -5,6 +5,8 @@ import Classes.Salary;
 import Classes.Teacher;
 
 
+import LinkedList.Node;
+import LinkedList.SinglyList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,17 +22,15 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-
 public class TeacherSalaryScene extends Application {
 
-    ArrayList<Teacher> teachers;
+    SinglyList<Teacher> teachers;
 
-    ArrayList<Lab_instructor> lab_instructors;
+    SinglyList<Lab_instructor> lab_instructors;
     int counter=0;
     int rowcounter=2;
     Salary salary = new Salary();
-    TeacherSalaryScene( ArrayList<Teacher> teachers ,ArrayList<Lab_instructor> lab_instructors){
+    TeacherSalaryScene( SinglyList<Teacher> teachers ,SinglyList<Lab_instructor> lab_instructors){
         this.teachers = teachers;
         this.lab_instructors  =lab_instructors;
     }
@@ -87,54 +87,60 @@ public class TeacherSalaryScene extends Application {
         });
 
         try {
-            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Teachers.ser");
+            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/DSA LAB PROJECT/src/Classes/Lab_Instructors.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            teachers = (ArrayList<Teacher>)ois.readObject();
-
+            lab_instructors = (SinglyList<Lab_instructor>)ois.readObject();
+            lab_instructors.sortList();
             Text[] fields = new Text[100];
-            for (int i = 0; i < teachers.size(); i++) {
-                fields[counter] = new Text(String.valueOf(teachers.get(i).getID()));
+            Node<Lab_instructor> node = lab_instructors.getFirst();
+            while (node !=null) {
+                fields[counter] = new Text(String.valueOf(node.getData().getID()));
                 grid3.add(fields[counter], 0, ++rowcounter);
                 counter++;
-                fields[counter] = new Text(teachers.get(i).getName());
+                fields[counter] = new Text(node.getData().getName());
                 grid3.add(fields[counter], 1, rowcounter);
                 counter++;
-                fields[counter] = new Text(String.valueOf(salary.getNet_amount(teachers.get(i))));
+                fields[counter] = new Text(String.valueOf(salary.getNet_amount(node.getData())));
                 grid3.add(fields[counter], 2, rowcounter);
                 counter++;
-                fields[counter] = new Text(String.valueOf(salary.getGross_amount(teachers.get(i))));
+                fields[counter] = new Text(String.valueOf(salary.getGross_amount(node.getData())));
                 grid3.add(fields[counter], 3, rowcounter);
                 counter++;
+                node = node.next;
             }
 
         } catch (Exception exep) {
             System.out.println(exep);
         }
-
         try {
-            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Lab_Instructors.ser");
+            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/DSA LAB PROJECT/src/Classes/Teachers.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            lab_instructors = (ArrayList<Lab_instructor>)ois.readObject();
-
+            teachers = (SinglyList<Teacher>)ois.readObject();
+            teachers.sortList();
             Text[] fields = new Text[100];
-            for (int i = 0; i < lab_instructors.size(); i++) {
-                fields[counter] = new Text(String.valueOf(lab_instructors.get(i).getID()));
+            Node<Teacher> node = teachers.getFirst();
+
+            while (node !=null) {
+                fields[counter] = new Text(String.valueOf(node.getData().getID()));
                 grid3.add(fields[counter], 0, ++rowcounter);
                 counter++;
-                fields[counter] = new Text(lab_instructors.get(i).getName());
+                fields[counter] = new Text(node.getData().getName());
                 grid3.add(fields[counter], 1, rowcounter);
                 counter++;
-                fields[counter] = new Text(String.valueOf(salary.getNet_amount(lab_instructors.get(i))));
+                fields[counter] = new Text(String.valueOf(salary.getNet_amount(node.getData())));
                 grid3.add(fields[counter], 2, rowcounter);
                 counter++;
-                fields[counter] = new Text(String.valueOf(salary.getGross_amount(lab_instructors.get(i))));
+                fields[counter] = new Text(String.valueOf(salary.getGross_amount(node.getData())));
                 grid3.add(fields[counter], 3, rowcounter);
                 counter++;
+                node = node.next;
             }
 
         } catch (Exception exep) {
             System.out.println(exep);
         }
+
+
 
         primaryStage.setScene(StudentFeeScene);
 

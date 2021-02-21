@@ -1,5 +1,6 @@
 package GUI_COMPONENTS;
 
+import LinkedList.SinglyList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,10 +17,9 @@ import Classes.Student;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
 public class StudentMenu extends Application {
-    ArrayList<Student> students = new ArrayList<>();
+    SinglyList students = new SinglyList();
     Student student1;
 
     public static void main(String[] args) {
@@ -57,7 +57,14 @@ public class StudentMenu extends Application {
         HBox MenuBtn3 = new HBox(10);
         MenuBtn3.setAlignment(Pos.CENTER);
         MenuBtn3.getChildren().add(Menu3);
-        grid2.add(MenuBtn3, 0, 2 , 2, 1);
+        grid2.add(MenuBtn3, 0, 2 );
+
+        Button Menu4 = new Button("Remove Student");
+        HBox MenuBtn4 = new HBox(10);
+        MenuBtn4.setAlignment(Pos.CENTER);
+        MenuBtn4.getChildren().add(Menu4);
+        grid2.add(MenuBtn4, 1, 2);
+
 
         Button Back = new Button("Back");
         HBox Backbtn = new HBox(10);
@@ -85,10 +92,17 @@ public class StudentMenu extends Application {
             studentFeeScene.start(primaryStage);
 
         });
+
+        Menu4.setOnAction(e ->{
+            DeleteStudents deleteStudents = new DeleteStudents(students);
+            deleteStudents.start(primaryStage);
+
+        });
+
         try {
-            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Students.ser");
+            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/DSA LAB PROJECT/src/Classes/Students.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            students = (ArrayList<Student>) ois.readObject();
+            students = (SinglyList)ois.readObject();
         }
         catch (Exception ex){
             System.out.println(ex);

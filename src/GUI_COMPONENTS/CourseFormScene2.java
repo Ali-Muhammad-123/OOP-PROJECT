@@ -1,6 +1,7 @@
 package GUI_COMPONENTS;
 
 import Classes.Teacher;
+import LinkedList.SinglyList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,19 +15,16 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Classes.Courses;
-import Classes.Student;
-
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
 public class CourseFormScene2 extends Application {
 
     Teacher teacher;
-    ArrayList<Teacher> teachers;
+    SinglyList<Teacher> teachers;
 
 
-    CourseFormScene2(Teacher teacher, ArrayList<Teacher> teachers){
+    CourseFormScene2(Teacher teacher, SinglyList<Teacher> teachers){
         this.teacher = teacher;
         this.teachers = teachers;
     }
@@ -41,13 +39,13 @@ public class CourseFormScene2 extends Application {
 
     public void start(Stage primaryStage) {
         Courses courses[] = new Courses[7];
-        courses[0] = new Courses("1001", "Object Oriented Programming", 3);
-        courses[1] = new Courses("1002", "Object Oriented Programming LAB", 1);
-        courses[2] = new Courses("1003", "Digital Logic Design", 3);
-        courses[3] = new Courses("1004", "Digital Logic Design LAB", 1);
-        courses[4] = new Courses("1005", "Statistics", 3);
-        courses[5] = new Courses("1006", "Oral Communication and Presentation Skills", 3);
-        courses[6] = new Courses("1007", "Design and Creativity", 3);
+        courses[0] = new Courses("1001", "Data Structures and Algorithims", 3);
+        courses[1] = new Courses("1002", "Data Structures and Algorithims LAB", 1);
+        courses[2] = new Courses("1003", "Computer Organization and Assembly Language", 3);
+        courses[3] = new Courses("1004", "Computer Organization and Assembly Language LAB", 1);
+        courses[4] = new Courses("1005", "Multivariate Calculus", 3);
+        courses[5] = new Courses("1006", "Professional Practices", 3);
+        courses[6] = new Courses("1007", "Discrete Mathematics", 3);
         Courses[] SelectedCourses = new Courses[7];
 
         GridPane grid4 = new GridPane();
@@ -67,13 +65,14 @@ public class CourseFormScene2 extends Application {
         grid4.add(Instructions, 0, 1);
 
         RadioButton[] coursebuttons = new RadioButton[7];
-        coursebuttons[0] = new RadioButton("Object Oriented Programming");
-        coursebuttons[1] = new RadioButton("Object Oriented Programming LAB");
-        coursebuttons[2] = new RadioButton("Digital Logic Design");
-        coursebuttons[3] = new RadioButton("Digital Logic Design LAB");
-        coursebuttons[4] = new RadioButton("Statistics");
-        coursebuttons[5] = new RadioButton("Oral Communication and Presentation Skills");
-        coursebuttons[6] = new RadioButton("Design and Creativity");
+        coursebuttons[0] = new RadioButton("Data Structures and Algorithims");
+        coursebuttons[1] = new RadioButton("Data Structures and Algorithims LAB");
+        coursebuttons[2] = new RadioButton("Computer Organization and Assembly Language");
+        coursebuttons[3] = new RadioButton("Computer Organization and Assembly Language LAB");
+        coursebuttons[4] = new RadioButton("Multivariate Calculus");
+        coursebuttons[5] = new RadioButton("Professional Practices");
+        coursebuttons[6] = new RadioButton("Discrete Mathematics");
+
 
         grid4.add(coursebuttons[0], 0, 2);
         grid4.add(coursebuttons[1], 2, 2);
@@ -103,9 +102,9 @@ public class CourseFormScene2 extends Application {
                 throw ex;
             }
             try{
-                FileOutputStream fop = new FileOutputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Teachers.ser");
+                FileOutputStream fop = new FileOutputStream("C:/Users/hp/Desktop/DSA LAB PROJECT/src/Classes/Teachers.ser");
                 ObjectOutputStream oos = new ObjectOutputStream(fop);
-                teachers.add(teacher);
+                teachers.insertFirst(teacher);
                 oos.writeObject(teachers);
 
             } catch (Exception ex) {

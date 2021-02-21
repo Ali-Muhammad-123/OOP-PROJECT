@@ -2,6 +2,8 @@ package GUI_COMPONENTS;
 
 import Classes.Fees;
 import Classes.Student;
+import LinkedList.Node;
+import LinkedList.SinglyList;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,14 +19,13 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
 
 public class StudentFeeScene extends Application {
 
-    ArrayList<Student> students;
+    SinglyList<Student> students;
     int counter=0;
     int rowcounter=2;
-    StudentFeeScene( ArrayList<Student> students){
+    StudentFeeScene( SinglyList<Student> students){
         this.students = students;
     }
 
@@ -80,17 +81,18 @@ public class StudentFeeScene extends Application {
         });
 
         try {
-            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/OOP PROJECT/src/Classes/Students.ser");
+            FileInputStream fis = new FileInputStream("C:/Users/hp/Desktop/DSA LAB PROJECT/src/Classes/Students.ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
-            students = (ArrayList<Student>)ois.readObject();
-
+            students = (SinglyList)ois.readObject();
+            students.sortList();
             Text[] fields = new Text[100];
-            for (int i = 0; i < students.size(); i++) {
-                Fees fees = new Fees(students.get(i));
-                fields[counter] = new Text(String.valueOf(students.get(i).getID()));
+            Node<Student> node = students.getFirst();
+            while (node !=null) {
+                Fees fees = new Fees(node.getData());
+                fields[counter] = new Text(String.valueOf(node.getData().getID()));
                 grid3.add(fields[counter], 0, ++rowcounter);
                 counter++;
-                fields[counter] = new Text(students.get(i).getName());
+                fields[counter] = new Text(node.getData().getName());
                 grid3.add(fields[counter], 1, rowcounter);
                 counter++;
                 fields[counter] = new Text(String.valueOf(fees.getNet_amount()));
@@ -99,6 +101,7 @@ public class StudentFeeScene extends Application {
                 fields[counter] = new Text(String.valueOf(fees.getGross_amount()));
                 grid3.add(fields[counter], 3, rowcounter);
                 counter++;
+                node = node.next;
                 }
 
         } catch (Exception exep) {

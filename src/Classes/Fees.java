@@ -1,11 +1,11 @@
 package Classes;
 
 public class Fees implements Finance {
-    Student student1;
+    Person student1;
     private float Gross_amount;
     private float Net_amount;
 
-    public Fees(Student student1){
+    public Fees(Person student1){
         this.student1 = student1;
     }
 

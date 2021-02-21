@@ -1,5 +1,6 @@
 package GUI_COMPONENTS;
 
+import LinkedList.SinglyList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -17,13 +18,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import Classes.*;
 
-import java.util.ArrayList;
-
 public class TeacherFormScene extends Application {
 
     Teacher teacher;
-    ArrayList<Teacher> teachers;
-    TeacherFormScene(Teacher teacher,ArrayList<Teacher> teachers){
+    SinglyList<Teacher> teachers;
+    TeacherFormScene(Teacher teacher,SinglyList<Teacher> teachers){
         this.teacher = teacher;
         this.teachers = teachers;
     }
